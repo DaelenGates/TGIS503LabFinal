@@ -1,0 +1,46 @@
+<!DOCTYPE htlm>
+<html>
+  <head>
+    <title> Dealen's Final Lab </title>
+    <!-- CSS BLOCK -->
+    <!-- load in styles.css -->
+    <link rel="stylesheet" type"text/css" href="styles.css">
+    <!-- input the Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+      crossorigin=""/>
+    <!-- Leaflet Legends CSS -->
+    <link rel="stylesheet" href="leaflet.legend.css" />
+    <!-- the clustering css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/>
+
+    <!-- JS BLOCK -->
+    <!-- inputing the leaflet js  -->
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+      integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+      crossorigin=""></script>
+    <!-- Leaflet Legends JS -->
+    <script src="leaflet.legend.js"></script>
+    <!-- adding the marker clustering js -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+  </head>
+
+  <body>
+    <h1> Tacoma community gardens and the possibility of arsenic contamintion from the Tacoma Plume </h1>
+    <div id="map" ></div>
+    <h1> Tacoma community gardens and the probability of lead contamintion from the Tacoma Plume (scroll down for map)</h1>
+    <div id="map2" ></div>
+    <!-- loading gardens geojson -->
+    <script type="text/javascript" src="geojsons/Gardens2.js"></script>
+    <!-- loading arsenic geojson -->
+    <script type="text/javascript" src="geojsons/Arsenicppm.js"></script>
+    <!-- leading in lead geojson -->
+    <script type="text/javascript" src="geojsons/LeadRisk.js"></script>
+    <!-- Java script -->
+    <script src="scripts.js"></script>
+
+  </body>
+
+</html>
