@@ -8,7 +8,7 @@ var map = L.map('map').setView([47.2562,-122.4582],12);
     accessToken: 'pk.eyJ1IjoiZGFlbGVuZyIsImEiOiJjbGE4MnNpbjQwMHgxM29vMG1xNXA0YjR3In0.1m-yZapuOVRg2zWL8fimbw',
 }).addTo(map);
 
-// attempting to add custom parks logo
+// add custom parks logo
 var leaf = L.icon({
       iconUrl: 'garden.png',
 
@@ -21,14 +21,15 @@ var leaf = L.icon({
 
 
     // this adds arsenic projections onto map1 changing color depending on the predicted arsenic ppms
-    var nam = 1;
+    var nam = 1; // this was a tester to see if the nam variable was changed by the end
  var arse = L.geoJson(ars,{
       interactive: false,
       PointToLayer: function(feature, latlng){
-        var nam = (feature.properties.NAME);
-        nam.bindPopup("hi");
-        console.log('hihi');
-        return nam;
+        // This was a failed attempt to create a variable out of the Name feild of the arse layer
+        // var nam = (feature.properties.NAME);
+        // nam.bindPopup("hi");
+        // console.log('hihi');
+        // return nam;
       },
       // marker.bindPopup('hi');
       style: function(feature){
@@ -55,10 +56,11 @@ var gardens = L.geoJson(gar, {
     //   // primary way of showing pop up on garden
       pointToLayer: function(feature, latlng){
       var marker = L.marker(latlng, {icon: leaf});
+      // add if statments for arsenic levels
       marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME);
       console.log(nam);
       return marker;
-    }
+      }
     // second way of adding popup
     // onEachFeature: function(f, l){
     //   l.bindPopup(gar.f.properties.Garden_Nam);
@@ -191,6 +193,7 @@ var gardens = L.geoJson(gar, {
       var marker = L.marker(latlng, {icon: leaf});
       var LdRsk = feature.properties.LdRsk;
       var LdRskR = Math.round(LdRsk);
+      // Add if statements here on LdRsk (lead risk)
       marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Percent chance of heavy lead risk: " + LdRskR + "%");
       return marker;
       }
