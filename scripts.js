@@ -1,5 +1,5 @@
 // JS for map1
-var map = L.map('map').setView([47.2562,-122.4582],12);
+var map = L.map('map').setView([47.2452,-122.4582],12);
   // Basemap initiation
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -17,12 +17,12 @@ var leaf = L.icon({
       // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
       // shadowAnchor: [4, 62],  // the same for the shadow
       // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    });
+});
 
 
     // this adds arsenic projections onto map1 changing color depending on the predicted arsenic ppms
     var nam = 1; // this was a tester to see if the nam variable was changed by the end
- var arse = L.geoJson(ars,{
+var arse = L.geoJson(ars,{
       interactive: false,
       PointToLayer: function(feature, latlng){
         // This was a failed attempt to create a variable out of the Name feild of the arse layer
@@ -49,7 +49,7 @@ var leaf = L.icon({
           return{"color": "grey"};
         }
       }
-    }).addTo(map);
+}).addTo(map);
 
 // adding garden maps as a variable so they can be split up by the clustering plugin
 var gardens = L.geoJson(gar, {
@@ -57,7 +57,21 @@ var gardens = L.geoJson(gar, {
       pointToLayer: function(feature, latlng){
       var marker = L.marker(latlng, {icon: leaf});
       // add if statments for arsenic levels
-      marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME);
+      if (feature.properties.NAME == "Under 20 ppm"){
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: It is likely safe to garden here based on predicted Arsenic Levels.");
+      }
+      if (feature.properties.NAME == "20 ppm to 40 ppm"){
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, Use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+      }
+      if (feature.properties.NAME == "40.1 ppm to 100 ppm"){
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+      }
+      if (feature.properties.NAME == "Over 100 ppm"){
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation. USE EXTREME CAUTION, VERY HIGH LEVELS OF ARSENIC" + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+      }
+      // else{
+      //   marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + "N/A");
+      // }
       console.log(nam);
       return marker;
       }
@@ -120,6 +134,7 @@ map.addLayer(clusters);
 
 // This adds the legends to map1
 var Legend = L.control.legend({
+  title: " ",
   position:"bottomright",
   opacity: 0.6,
   legends:[
@@ -179,7 +194,7 @@ var Legend2 = L.control.legend({
 
 // JS for map2
 
-var map2 = L.map('map2').setView([47.2562,-122.4582],12);
+var map2 = L.map('map2').setView([47.2452,-122.4582],12);
   // Basemap initiation
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -194,7 +209,22 @@ var gardens = L.geoJson(gar, {
       var LdRsk = feature.properties.LdRsk;
       var LdRskR = Math.round(LdRsk);
       // Add if statements here on LdRsk (lead risk)
-      marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Percent chance of heavy lead risk: " + LdRskR + "%");
+      if(feature.properties.LdRsk <= 100){
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Percent chance of heavy lead risk: " + LdRskR + "%" + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation. USE EXTREME CAUTION, NEAR GARENTEED CHANCE OF LEAD." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>'
+        );
+      }
+      if(feature.properties.LdRsk <= 90){
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Percent chance of heavy lead risk: " + LdRskR + "%" + '<br>' + '<br>'  + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation. USE EXTREME CAUTION, NEAR GARENTEED CHANCE OF LEAD." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+      }
+      if(feature.properties.LdRsk <= 77){
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Percent chance of heavy lead risk: " + LdRskR + "%" + '<br>' + '<br>'  + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation. USE EXTREME CAUTION, VERY HIGH CHANCE OF LEAD." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+      }
+      if(feature.properties.LdRsk <= 57){
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Percent chance of heavy lead risk: " + LdRskR + "%" + '<br>' + '<br>'  + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation. USE EXTREME CAUTION, HIGH CHANCE OF LEAD." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+      }
+      if(feature.properties.LdRsk <= 31){
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Percent chance of heavy lead risk: " + LdRskR + "%" + '<br>' + '<br>'  + "Recomondations: Probably do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation. Exersice caution." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+      }
       return marker;
       }
 
@@ -245,7 +275,7 @@ var Legend = L.control.legend({
 }).addTo(map2);
 
 var Legend2 = L.control.legend({
-  title: "Percent chance of there being significant Lead levels",
+  title: "Percent chance of significant lead levels",
   position:"bottomleft",
   opacity: 0.6,
   legends:[
