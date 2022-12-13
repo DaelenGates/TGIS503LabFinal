@@ -17,12 +17,14 @@ div {
   /* position: absolute; */
   width: 98vw;
   height: 75vh;
+  border-radius: 10px;
 }
 
 #map2 {
 
   width: 98vw;
   height: 85vh;
+  border-radius: 10px;
 }
 h1{
   background-color: green;

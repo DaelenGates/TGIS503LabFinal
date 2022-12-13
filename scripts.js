@@ -174,7 +174,7 @@ var Legend2 = L.control.legend({
       weight: 4
     },
     {
-      label:"40.1 to 100 PPm",
+      label:"40.1 to 100 PPM",
       type: "rectangle",
       color: '#fd8d3c',
       fillOpacity: "0.8",
