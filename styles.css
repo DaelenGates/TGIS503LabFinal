@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: rgb(80, 138, 75);
   color: white;
   padding: 10px;
   margin: 0;
@@ -40,7 +40,7 @@ a:link {
   background-color: transparent;
 }
 a:visited {
-  color: green;
+  color: rgb(56, 39, 133);
   background-color: transparent;
 }
 
