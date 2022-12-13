@@ -1,11 +1,12 @@
 body {
   background-color: black;
   color: white;
-   padding: 0;
-   margin: 0;
-   font-family: Calibri, sans-serif;
+  padding: 10px;
+  margin: 0;
+  font-family: Calibri, sans-serif;
+  
 }
-/* this style was added to make the notification of the clickable map more vissable */
+
 div {
   font-size: 1.1em;
   color: black;
@@ -13,15 +14,20 @@ div {
 }
 
 #map {
-   /* position: absolute; */
-   width: 99vw;
-   height: 75vh;
+  /* position: absolute; */
+  width: 98vw;
+  height: 75vh;
 }
 
 #map2 {
 
-  width: 99vw;
+  width: 98vw;
   height: 85vh;
+}
+h1{
+  background-color: green;
+  margin-right:20%;
+  border-radius: 8px;
 }
 p1{
   font-size: 20;
@@ -37,3 +43,4 @@ a:visited {
   color: green;
   background-color: transparent;
 }
+

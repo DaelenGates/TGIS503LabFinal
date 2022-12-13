@@ -8,6 +8,12 @@ var map = L.map('map').setView([47.2452,-122.4582],12);
     accessToken: 'pk.eyJ1IjoiZGFlbGVuZyIsImEiOiJjbGE4MnNpbjQwMHgxM29vMG1xNXA0YjR3In0.1m-yZapuOVRg2zWL8fimbw',
 }).addTo(map);
 
+
+// This adds a compass to the first map 
+var comp = new L.Control.Compass({autoActive: true,textErr:' '});
+
+map.addControl(comp);
+
 // add custom parks logo
 var leaf = L.icon({
       iconUrl: 'garden.png',
@@ -58,19 +64,19 @@ var gardens = L.geoJson(gar, {
       var marker = L.marker(latlng, {icon: leaf});
       // add if statments for arsenic levels
       if (feature.properties.NAME == "Under 20 ppm"){
-        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: It is likely safe to garden here based on predicted Arsenic Levels.");
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Arsenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: It is likely safe to garden here based on predicted Arsenic Levels.");
       }
       if (feature.properties.NAME == "20 ppm to 40 ppm"){
-        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, Use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Arsenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, Use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
       }
       if (feature.properties.NAME == "40.1 ppm to 100 ppm"){
-        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Arsenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation." + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
       }
       if (feature.properties.NAME == "Over 100 ppm"){
-        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation. USE EXTREME CAUTION, VERY HIGH LEVELS OF ARSENIC" + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
+        marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Arsenic Levels: " + feature.properties.NAME + '<br>' + '<br>' + "Recomondations: Do not garden directly in soil, use raised beds with lining under the bed. Wet ground soil if you plan on digging anywhere to prevent dust inhalation. USE EXTREME CAUTION, VERY HIGH LEVELS OF ARSENIC" + '<br>' + '<a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Dirt-Alert-program/Gardening-tips" target="_blank">additional information</a>');
       }
       // else{
-      //   marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Asenic Levels: " + feature.properties.NAME + '<br>' + "N/A");
+      //   marker.bindPopup("Garden name: " + feature.properties.Garden_Nam + '<br>' + "Arsenic Levels: " + feature.properties.NAME + '<br>' + "N/A");
       // }
       console.log(nam);
       return marker;
@@ -89,7 +95,7 @@ clusters.addLayer(gardens);
 // clusters.addLayer(arse);
 map.addLayer(clusters);
 
-// trying to get popup to show informatino from two layers using featureGroup !!! FAILD
+// trying to get popup to show informatino from two layers using featureGroup !!! FAILED
 // var group = L.featureGroup([clusters, arse], {
 //   intaractive: true,
 //   onEachFeature: function(f, l){
@@ -147,7 +153,7 @@ var Legend = L.control.legend({
   ]
 }).addTo(map);
 
-// Legend for the Asenic part of the map
+// Legend for the Arsenic part of the map
 var Legend2 = L.control.legend({
   title: "Levels of Arsenic (PPM)",
   position:"bottomleft",
@@ -202,6 +208,12 @@ var map2 = L.map('map2').setView([47.2452,-122.4582],12);
     id: 'mapbox/streets-v11',
     accessToken: 'pk.eyJ1IjoiZGFlbGVuZyIsImEiOiJjbGE4MnNpbjQwMHgxM29vMG1xNXA0YjR3In0.1m-yZapuOVRg2zWL8fimbw',
 }).addTo(map2);
+
+// This adds a compass to map2 
+var comp = new L.Control.Compass({autoActive: true,textErr: ' '});
+
+map2.addControl(comp);
+
 // adding garden maps as a variable so they can be split up by the clustering plugin to map 2
 var gardens = L.geoJson(gar, {
     pointToLayer: function(feature, latlng){
